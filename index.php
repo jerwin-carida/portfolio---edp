@@ -1,5 +1,5 @@
 <?php
-$siteName = 'Jerwin Carida';
+$siteName = '[Your Name]';
 $lostFoundUrl = ''; // TODO: paste the deployed Lost and Found URL here
 ?>
 <!DOCTYPE html>
@@ -26,5 +26,6 @@ $lostFoundUrl = ''; // TODO: paste the deployed Lost and Found URL here
   <?php include 'includes/footer.php'; ?>
   <script src="js/main.js" defer></script>
   <script src="js/workshop.js" defer></script>
+  <script src="js/board.js" defer></script>
 </body>
 </html>

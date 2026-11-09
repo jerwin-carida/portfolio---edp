@@ -1,5 +1,5 @@
 <section id="workshop" class="chapter" aria-labelledby="work-h">
-  <div class="reveal">
+  <div class="reveal spot-intro">
     <p class="mono chapter-label">Chapter 02 &mdash; The Workshop</p>
     <h2 id="work-h">A collection of experiments</h2>
     <p class="lede">Small projects, practical applications, and one real collaboration. Try them right here on the page.</p>
