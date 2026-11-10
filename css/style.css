@@ -54,7 +54,7 @@ a{color:inherit}
 body.on-board .nav{opacity:0;transform:translateY(-100%);pointer-events:none}
 .board-wrap{height:240vh;position:relative}
 .board{position:sticky;top:0;height:100vh;overflow:hidden;background:#b88a5a}
-.stage{position:absolute;inset:0;will-change:transform,opacity;
+.stage{position:absolute;inset:0;transform-origin:0 0;will-change:transform,opacity;
  background:radial-gradient(ellipse at center,rgba(237,227,206,.35),transparent 70%),radial-gradient(rgba(60,35,15,.28) 1.2px,transparent 1.6px) 0 0/7px 7px,radial-gradient(rgba(255,235,200,.22) 1px,transparent 1.5px) 3px 3px/9px 9px,#b98c5b;
  box-shadow:inset 0 0 0 14px #6e4a2b,inset 0 0 60px rgba(0,0,0,.35)}
 .strings{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
@@ -72,11 +72,26 @@ a.node:hover .paper,a.node:focus-visible .paper{box-shadow:3px 9px 18px rgba(0,0
 .scroll-hint{position:absolute;left:0;right:0;bottom:1.2rem;text-align:center;margin:0;color:#f4ecd8;text-shadow:0 1px 3px rgba(0,0,0,.6)}
 @media (max-width:760px){.n-hero{--x:50;--y:40}.n-ch2{--x:28;--y:13}.n-ch3{--x:72;--y:15}.n-ch4{--x:72;--y:76}.n-a1{--x:25;--y:68}.n-a2{--x:46;--y:88}.chapter-note{width:38vw}}
 /* flapping notes + spotlight vignette */
-@keyframes flap{0%,100%{transform:rotate(var(--tilt,0deg))}30%{transform:rotate(calc(var(--tilt,0deg) + 1.6deg))}65%{transform:rotate(calc(var(--tilt,0deg) - 1.2deg))}}
-.flap{animation:flap .7s ease-in-out;transform-origin:50% 0}
 .slot{--tilt:0deg}
-.vignette{position:fixed;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .5s;
- background:radial-gradient(circle at var(--sx,50%) var(--sy,50%),transparent calc(var(--sr,300px)*.8),rgba(41,41,37,.5) calc(var(--sr,300px)*1.9))}
+.vignette{position:fixed;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .5s;contain:strict;background:rgba(41,41,37,.5);
+ -webkit-mask-image:radial-gradient(circle at var(--sx,50%) var(--sy,50%),transparent calc(var(--sr,300px)*.6),#000 calc(var(--sr,300px)*2.1));
+ mask-image:radial-gradient(circle at var(--sx,50%) var(--sy,50%),transparent calc(var(--sr,300px)*.6),#000 calc(var(--sr,300px)*2.1))}
 .vignette.on{opacity:1}
 .retreat{opacity:.4;transition:opacity .5s}.exp-text,.spot-intro{transition:opacity .5s}
-@media (prefers-reduced-motion:reduce){.board-wrap{height:auto}.board{position:relative}.flap{animation:none}.vignette{transition:none}}
+@media (prefers-reduced-motion:reduce){.board-wrap{height:auto}.board{position:relative}.vignette{transition:none}}
+
+/* ===== Update 2: performance architecture ===== */
+.stage.gone{visibility:hidden}
+#person,#contact,.foot{content-visibility:auto;contain-intrinsic-size:auto 600px}
+.ink,.slot,.cli-note{backface-visibility:hidden}
+
+/* ===== Update 2.1: stickers, cat paw, GPU-only note physics ===== */
+.sticker{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1%);width:clamp(54px,8vw,96px);height:auto;transform:translate(-50%,-50%) rotate(var(--r,0deg));pointer-events:none;user-select:none;filter:drop-shadow(1px 3px 3px rgba(0,0,0,.35))}
+.s1{--x:7;--y:50;--r:-8deg}.s2{--x:91;--y:54;--r:5deg;width:clamp(64px,10vw,120px)}.s3{--x:58;--y:90;--r:6deg}.s4{--x:50;--y:7;--r:-10deg}
+@media (max-width:760px){.s1{--x:9;--y:94}.s2{--x:91;--y:93}.s3{display:none}.s4{--x:50;--y:4}}
+.paw{position:absolute;left:0;top:0;width:44px;height:44px;z-index:4;pointer-events:none;will-change:transform}
+.paw svg{width:100%;height:100%;fill:#292925;opacity:0}
+.paw svg.pop{animation:pawpop .8s ease-out forwards}
+@keyframes pawpop{0%{opacity:0;transform:rotate3d(0,0,1,var(--rot,0deg)) scale3d(.3,.3,1)}22%{opacity:.9;transform:rotate3d(0,0,1,var(--rot,0deg)) scale3d(1.18,1.18,1)}40%{opacity:.9;transform:rotate3d(0,0,1,var(--rot,0deg)) scale3d(1,1,1)}100%{opacity:0;transform:rotate3d(0,0,1,var(--rot,0deg)) scale3d(1,1,1)}}
+@media (prefers-reduced-motion:reduce){@keyframes pawpop{0%{opacity:0}20%{opacity:.9}100%{opacity:0}}}
+.board a.node{cursor:pointer}

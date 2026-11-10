@@ -11,6 +11,10 @@ $notes = [
     <div class="stage" id="stage">
       <svg class="strings" id="strings" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
 
+      <?php foreach ([['cat-face.svg','s1',64,64],['cat-loaf.svg','s2',80,60],['cat-sit.svg','s3',56,80],['cat-paw.svg','s4',64,64]] as [$f,$c,$w,$h]): ?>
+      <img class="sticker <?= $c ?>" src="assets/images/stickers/<?= $f ?>" alt="" width="<?= $w ?>" height="<?= $h ?>" decoding="async" loading="lazy">
+      <?php endforeach; ?>
+
       <div class="node n-hero" data-hero>
         <div class="paper hero-note">
           <p class="mono chapter-label">Chapter 01 &mdash; Introduction</p>
@@ -41,5 +45,8 @@ $notes = [
 
       <p class="scroll-hint hand" aria-hidden="true">scroll to zoom in &darr;</p>
     </div>
+    <?php for ($i = 0; $i < 6; $i++): ?>
+    <span class="paw" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 17c-4 0-8 3.5-8 7 0 2.5 2 3.5 4 3.5 1.5 0 2.5-.7 4-.7s2.5.7 4 .7c2 0 4-1 4-3.5 0-3.5-4-7-8-7z"/><ellipse cx="7" cy="14" rx="2.6" ry="3.4" transform="rotate(-20 7 14)"/><ellipse cx="12.5" cy="8.5" rx="2.8" ry="3.8"/><ellipse cx="19.5" cy="8.5" rx="2.8" ry="3.8"/><ellipse cx="25" cy="14" rx="2.6" ry="3.4" transform="rotate(20 25 14)"/></svg></span>
+    <?php endfor; ?>
   </div>
 </section>
