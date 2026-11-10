@@ -58,7 +58,7 @@ body.on-board .nav{opacity:0;transform:translateY(-100%);pointer-events:none}
  background:radial-gradient(ellipse at center,rgba(237,227,206,.35),transparent 70%),radial-gradient(rgba(60,35,15,.28) 1.2px,transparent 1.6px) 0 0/7px 7px,radial-gradient(rgba(255,235,200,.22) 1px,transparent 1.5px) 3px 3px/9px 9px,#b98c5b;
  box-shadow:inset 0 0 0 14px #6e4a2b,inset 0 0 60px rgba(0,0,0,.35)}
 .strings{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.strings path{fill:none;stroke:#b3261e;stroke-width:2;vector-effect:non-scaling-stroke;stroke-linecap:round;opacity:.9}
+.strings path{fill:none;stroke:#8b3a2b;stroke-width:2;vector-effect:non-scaling-stroke;stroke-linecap:round;opacity:.9}
 .node{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1%);transform:translate(-50%,-50%);text-decoration:none;color:var(--ink);display:block}
 .paper{position:relative;display:block;background:#f4ecd8;padding:1.2rem 1rem 1rem;box-shadow:2px 5px 12px rgba(0,0,0,.35);transform:rotate(var(--tilt,0deg));transform-origin:50% 0;transition:box-shadow .3s}
 .paper::before{content:'';position:absolute;top:-7px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:#b3261e;box-shadow:inset -2px -2px 3px rgba(0,0,0,.4),1px 3px 4px rgba(0,0,0,.35)}
@@ -95,3 +95,119 @@ a.node:hover .paper,a.node:focus-visible .paper{box-shadow:3px 9px 18px rgba(0,0
 @keyframes pawpop{0%{opacity:0;transform:rotate3d(0,0,1,var(--rot,0deg)) scale3d(.3,.3,1)}22%{opacity:.9;transform:rotate3d(0,0,1,var(--rot,0deg)) scale3d(1.18,1.18,1)}40%{opacity:.9;transform:rotate3d(0,0,1,var(--rot,0deg)) scale3d(1,1,1)}100%{opacity:0;transform:rotate3d(0,0,1,var(--rot,0deg)) scale3d(1,1,1)}}
 @media (prefers-reduced-motion:reduce){@keyframes pawpop{0%{opacity:0}20%{opacity:.9}100%{opacity:0}}}
 .board a.node{cursor:pointer}
+
+/* ===== Update 3: classified cat-government content ===== */
+/* cat stickers stay in the markup but are hidden from the hero */
+.sticker{display:none}
+.classified{font-family:'JetBrains Mono',monospace;font-size:.9em;background:var(--ink);color:var(--paper);padding:.05em .4em}
+.strike{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:#b3261e;opacity:.6}
+.chapter-note .cn-title .strike{display:inline}
+.chapter-note.is-black{background:#000;color:#fff}
+.chapter-note.is-black .muted,.chapter-note.is-black .cn-num{color:#fff}
+.chapter-note.is-black .strike{text-decoration-color:#ff6b5e}
+/* hero mascot <image> elements (empty until the asset exists) */
+/* Hero and introduction mascots */
+/* Introduction mascot */
+/* Introduction mascot */
+.mascot {
+    position: absolute;
+    bottom: 0;
+    width: clamp(210px, 37.5vw, 270px);
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+}
+
+.mascot.l {
+    right: calc(100% + 8px);
+}
+
+.mascot.r {
+    left: calc(100% + 8px);
+}
+
+@media (max-width:760px) {
+    .mascot {
+        width: 210px;
+        bottom: -35px;
+    }
+
+    .mascot.l {
+        right: auto;
+        left: -10px;
+    }
+
+    .mascot.r {
+        left: auto;
+        right: -10px;
+    }
+}
+/* Project badge + mascot callouts */
+.badge {
+    display: inline-block;
+    margin: .2rem 0 .8rem;
+    padding: .2rem .6rem;
+    border: 2px solid #2f6b3a;
+    color: #2f6b3a;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    transform: rotate(-2deg);
+}
+
+.mascot-note {
+    grid-column: 1/-1;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    max-width: 100%;
+}
+
+.mascot-note.lower-right {
+    justify-self: end;
+    flex-direction: row-reverse;
+}
+
+.mascot-note.lower-left {
+    justify-self: start;
+}
+
+.mascot-note .pm {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    flex: none;
+}
+
+.mascot-note .bubble {
+    background: #fff;
+    border: 1px solid var(--ink);
+    border-radius: 14px;
+    padding: .6rem .9rem;
+    max-width: 30ch;
+    min-width: 0;
+    font-size: .95rem;
+    line-height: 1.35;
+    box-shadow: 2px 3px 0 rgba(41,41,37,.2);
+}
+/* simple calculator widget */
+.calc{position:relative;background:var(--note);padding:1.8rem 1.2rem 1.2rem;box-shadow:3px 6px 14px rgba(41,41,37,.22);transform:rotate(var(--tilt));max-width:340px;width:100%;justify-self:center;backface-visibility:hidden}
+.calc::before{content:'';position:absolute;top:-12px;left:50%;width:90px;height:24px;margin-left:-45px;background:rgba(113,137,154,.5);transform:rotate(-2deg)}
+.calc .label{margin:0 0 .5rem;color:var(--muted)}
+.calc-expr{margin:0;min-height:1.2em;text-align:right;color:var(--muted)}
+.calc-screen{display:block;margin:.1rem 0 .7rem;padding:.4rem .7rem;text-align:right;font-size:1.6rem;min-height:2.6rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border:1px solid rgba(41,41,37,.3);background:rgba(255,255,255,.5)}
+.calc-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}
+.calc-keys button{min-height:48px;border:1px solid var(--ink);background:#fffdf4;color:var(--ink);font:500 1.1rem 'JetBrains Mono',monospace;cursor:pointer;transition:background .2s}
+.calc-keys button:hover{background:#fff}.calc-keys button:active{background:var(--note)}
+.calc-keys .op{background:var(--slate);color:#fff}.calc-keys .fn{background:#e9dfc4}
+.calc-keys .eq{background:var(--ink);color:var(--paper)}.calc-keys .tall{grid-row:span 2}.calc-keys .wide{grid-column:span 2}
+
+
+.n-hero > .mascot.r {
+    left: calc(100% - 90px);
+    right: auto;
+    bottom: -20px;
+    z-index: 2;
+}

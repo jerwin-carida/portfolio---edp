@@ -15,7 +15,7 @@
     var a = pin(hero);
     stage.querySelectorAll('[data-string]').forEach(function (n) {
       var b = pin(n), mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2 + 4;
-      d += '<path d="M' + a[0] + ' ' + a[1] + ' Q' + mx + ' ' + my + ' ' + b[0] + ' ' + b[1] + '"/>';
+      d += '<path stroke="#8b3a2b" stroke-width="2" fill="none" d="M' + a[0] + ' ' + a[1] + ' Q' + mx + ' ' + my + ' ' + b[0] + ' ' + b[1] + '"/>';
     });
     svg.innerHTML = d;
   }
@@ -28,7 +28,7 @@
     var intro = ws.querySelector('.spot-intro');
     items.push({ box: intro, title: intro, widget: null });
     ws.querySelectorAll('.exp').forEach(function (a) {
-      items.push({ box: a, title: a.querySelector('.exp-text') || a, widget: a.querySelector('.cli-note,.slot,.frame') });
+      items.push({ box: a, title: a.querySelector('.exp-text') || a, widget: a.querySelector('.cli-note,.calc,.slot') });
     });
     items.forEach(function (it, i) {
       if (!it.widget) return;
@@ -36,10 +36,17 @@
       it.widget.addEventListener('pointerdown', f);
       it.widget.addEventListener('focusin', f);
     });
+    // two-way spotlight: clicking the description/title container shifts the spotlight back to the text
+    items.forEach(function (it, i) {
+      if (!it.title) return;
+      var g = function () { active = i; mode = 'title'; lastPick = 0; wake(); };
+      it.title.addEventListener('pointerdown', g);
+      it.title.addEventListener('focusin', g);
+    });
   }
 
   // ---------- sticky notes (rotational inertia) ----------
-  var notes = [].slice.call(document.querySelectorAll('.cli-note,.slot,.board .paper')).map(function (el, i) {
+  var notes = [].slice.call(document.querySelectorAll('.cli-note,.calc,.slot,.board .paper')).map(function (el, i) {
     return { el: el, zone: el.closest('.board') ? 'intro' : 'ws', base: 0, th: 0, w: 0, on: false, k: 0.7 + (i % 4) * 0.15 };
   });
 

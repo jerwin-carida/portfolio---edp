@@ -1,6 +1,6 @@
 <section id="person" class="chapter" aria-labelledby="person-h">
   <div class="reveal narrow">
-    <p class="mono chapter-label">Chapter 03 &mdash; The Person Behind the Code</p>
+    <p class="mono chapter-label">Chapter 03 &mdash; Agent's Profile</p>
     <h2 id="person-h">Beyond the commit log</h2>
     <p>[A short, sincere introduction in your own words.]</p>
     <h3>Interests &amp; curiosities</h3>

@@ -3,8 +3,8 @@
   <nav aria-label="Chapters">
     <ul>
       <li><a href="#intro"><span>01</span> Introduction</a></li>
-      <li><a href="#workshop"><span>02</span> Workshop</a></li>
-      <li><a href="#person"><span>03</span> The Person</a></li>
+      <li><a href="#workshop"><span>02</span> Top Secret Projects</a></li>
+      <li><a href="#person"><span>03</span> Agent's Profile</a></li>
       <li><a href="#contact"><span>04</span> Unfinished</a></li>
     </ul>
   </nav>

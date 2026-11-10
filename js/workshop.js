@@ -54,4 +54,52 @@ document.addEventListener('DOMContentLoaded', function () {
       else { done = true; cli.print('Correct! You got it in ' + tries + (tries === 1 ? ' try.' : ' tries.')); }
     },
     newGame);
+
+  // 03 Simple calculator (click events only; no eval)
+  var calc = document.getElementById('calc');
+  if (calc) {
+    var screen = document.getElementById('calc-screen'), exprEl = document.getElementById('calc-expr');
+    var cur = '0', prev = null, op = null, fresh = false, dead = false;
+    var sym = { '+': '+', '-': '\u2212', '*': '\u00d7', '/': '\u00f7' };
+    function fmt(n) { return String(parseFloat(n.toPrecision(12))); }
+    function compute(a, o, b) {
+      if (o === '+') return a + b; if (o === '-') return a - b; if (o === '*') return a * b;
+      return b === 0 ? NaN : a / b;
+    }
+    function render() {
+      screen.textContent = cur;
+      exprEl.textContent = op ? fmt(prev) + ' ' + sym[op] : '\u00a0';
+    }
+    function reset() { cur = '0'; prev = null; op = null; fresh = false; dead = false; }
+    function press(k) {
+      if (dead) reset();
+      if (/^\d$/.test(k)) {
+        if (fresh) { cur = k; fresh = false; }
+        else if (cur.replace(/[-.]/g, '').length < 12) cur = cur === '0' ? k : cur + k;
+      } else if (k === '.') {
+        if (fresh) { cur = '0.'; fresh = false; } else if (cur.indexOf('.') < 0) cur += '.';
+      } else if (k === 'C') { reset(); }
+      else if (k === 'del') { if (!fresh) cur = cur.length > 1 && cur !== '-0' ? cur.slice(0, -1) : '0'; }
+      else if (k === '=') {
+        if (op !== null && !fresh) {
+          var r = compute(prev, op, parseFloat(cur));
+          if (!isFinite(r)) { cur = 'Error'; dead = true; } else cur = fmt(r);
+          prev = null; op = null; fresh = true;
+        }
+      } else {                                   // + - * /
+        if (op !== null && !fresh) {
+          var r2 = compute(prev, op, parseFloat(cur));
+          if (!isFinite(r2)) { cur = 'Error'; dead = true; prev = null; op = null; render(); return; }
+          prev = r2; cur = fmt(r2);
+        } else prev = parseFloat(cur);
+        op = k; fresh = true;
+      }
+      render();
+    }
+    calc.querySelector('.calc-keys').addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-k]');
+      if (b) press(b.getAttribute('data-k'));
+    });
+    render();
+  }
 });
