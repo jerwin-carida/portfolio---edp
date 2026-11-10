@@ -3,17 +3,17 @@ $notes = [
   ['cls' => 'n-ch2', 'href' => '#workshop', 'num' => '02',
    'title' => 'Top Secret Projects',
    'sub' => "The following are classified cat government's projects. Read at your own risk.",
-   'variant' => '', 'side' => 'l'],
+   'variant' => '', 'side' => 'l', 'img' => 'assets/images/detective01.webp'],
 
   ['cls' => 'n-ch3', 'href' => '#person', 'num' => '03',
    'title' => "Agent's Profile",
    'sub' => 'Skills: [REDACTED], Qualifications: [REDACTED]',
-   'variant' => 'is-black', 'side' => 'r'],
+   'variant' => 'is-black', 'side' => 'r', 'img' => 'assets/images/detective.webp'],
 
   ['cls' => 'n-ch4', 'href' => '#contact', 'num' => '04',
    'title' => 'The Unfinished Chapter',
    'sub' => 'Quick, call now!',
-   'variant' => '', 'side' => 'r'],
+   'variant' => '', 'side' => 'r', 'img' => 'assets/images/detective01.webp'],
 ];
 ?>
 
@@ -22,7 +22,10 @@ $notes = [
     <div class="stage" id="stage">
       <svg class="strings" id="strings" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
 
-      <?php /* Cat stickers stay in the source but are hidden visually (.sticker{display:none} in css/style.css). */ ?>
+      <?php /* Cat stickers are hidden in the hero but kept in the source. To show them again, remove this comment:
+      foreach ([['cat-face.svg','s1',64,64],['cat-loaf.svg','s2',80,60],['cat-sit.svg','s3',56,80],['cat-paw.svg','s4',64,64]] as [$f,$c,$w,$h]): ?>
+      <img class="sticker <?= $c ?>" src="<?= asset('assets/images/stickers/' . $f) ?>" alt="" width="<?= $w ?>" height="<?= $h ?>" decoding="async">
+      <?php endforeach; */ ?>
 
 
       <div class="node n-hero" data-hero>
@@ -38,8 +41,8 @@ $notes = [
           <a class="btn" href="#workshop">Open the Top Secret Projects &darr;</a>
         </div>
 
-        <!-- Mascot image: empty until the asset is available -->
-        <img src="../assets/images/detective.webp" class="mascot r" alt="" width="84" height="84" decoding="async">
+        <!-- Hero mascot (root-relative asset URL with cache buster) -->
+        <img src="<?= asset('assets/images/detective.webp') ?>" class="mascot l" alt="" width="84" height="84" decoding="async">
       </div>
 
       <?php foreach ($notes as $n): ?>
@@ -52,7 +55,7 @@ $notes = [
           <span class="mono muted"><?= htmlspecialchars($n['sub']) ?></span>
         </span>
 
-        <img class="mascot <?= $n['side'] ?>" alt="" width="84" height="84" decoding="async">
+        <img class="mascot <?= $n['side'] ?>" src="<?= asset($n['img']) ?>" alt="" width="84" height="84" decoding="async">
       </a>
       <?php endforeach; ?>
 

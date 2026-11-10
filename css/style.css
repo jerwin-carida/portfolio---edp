@@ -67,15 +67,14 @@ a.node:hover .paper,a.node:focus-visible .paper{box-shadow:3px 9px 18px rgba(0,0
 .chapter-note{width:min(40vw,210px);--tilt:1.5deg;display:flex;flex-direction:column;gap:.2rem}
 .cn-num{color:var(--gold);font-size:1.1rem}.cn-title{font:600 1.35rem/1.1 'Cormorant Garamond',serif}
 .polaroid{width:min(26vw,130px);padding:.6rem .6rem .4rem;background:#fff}.polaroid .ph{aspect-ratio:1;background:linear-gradient(135deg,#cfc6b0,#9aa3a8)}.polaroid .hand{font-size:1rem;display:block;text-align:center}
-.n-hero{--x:50;--y:46}.n-ch2{--x:20;--y:24;--tilt:-2deg}.n-ch3{--x:80;--y:26;--tilt:2deg}.n-ch4{--x:76;--y:78;--tilt:-1.5deg}.n-a1{--x:20;--y:72;--tilt:-4deg}.n-a2{--x:36;--y:84;--tilt:3deg}
+.n-hero{--x:50;--y:46}.n-ch2{--x:23;--y:24;--tilt:-2deg}.n-ch3{--x:77;--y:26;--tilt:2deg}.n-ch4{--x:76;--y:78;--tilt:-1.5deg}.n-a1{--x:20;--y:72;--tilt:-4deg}.n-a2{--x:36;--y:84;--tilt:3deg}
 .n-ch2 .paper{--tilt:-2deg}.n-ch3 .paper{--tilt:2deg}.n-ch4 .paper{--tilt:-1.5deg}.n-a1 .paper{--tilt:-4deg}.n-a2 .paper{--tilt:3deg}
 .scroll-hint{position:absolute;left:0;right:0;bottom:1.2rem;text-align:center;margin:0;color:#f4ecd8;text-shadow:0 1px 3px rgba(0,0,0,.6)}
-@media (max-width:760px){.n-hero{--x:50;--y:40}.n-ch2{--x:28;--y:13}.n-ch3{--x:72;--y:15}.n-ch4{--x:72;--y:76}.n-a1{--x:25;--y:68}.n-a2{--x:46;--y:88}.chapter-note{width:38vw}}
+@media (max-width:760px){.n-hero{--x:50;--y:48}.n-ch2{--x:25;--y:13}.n-ch3{--x:75;--y:13}.n-ch4{--x:68;--y:88}.n-a1{--x:25;--y:68}.n-a2{--x:46;--y:88}.chapter-note{width:44vw}.chapter-note .mono{font-size:.72rem}.cn-title{font-size:1.15rem}}
 /* flapping notes + spotlight vignette */
 .slot{--tilt:0deg}
-.vignette{position:fixed;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .5s;contain:strict;background:rgba(41,41,37,.5);
- -webkit-mask-image:radial-gradient(circle at var(--sx,50%) var(--sy,50%),transparent calc(var(--sr,300px)*.6),#000 calc(var(--sr,300px)*2.1));
- mask-image:radial-gradient(circle at var(--sx,50%) var(--sy,50%),transparent calc(var(--sr,300px)*.6),#000 calc(var(--sr,300px)*2.1))}
+.vignette{position:fixed;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .5s;contain:strict;
+ background:radial-gradient(circle at var(--sx,50%) var(--sy,50%),rgba(41,41,37,0) calc(var(--sr,300px)*.6),rgba(41,41,37,.5) calc(var(--sr,300px)*2.1))}
 .vignette.on{opacity:1}
 .retreat{opacity:.4;transition:opacity .5s}.exp-text,.spot-intro{transition:opacity .5s}
 @media (prefers-reduced-motion:reduce){.board-wrap{height:auto}.board{position:relative}.vignette{transition:none}}
@@ -105,45 +104,21 @@ a.node:hover .paper,a.node:focus-visible .paper{box-shadow:3px 9px 18px rgba(0,0
 .chapter-note.is-black{background:#000;color:#fff}
 .chapter-note.is-black .muted,.chapter-note.is-black .cn-num{color:#fff}
 .chapter-note.is-black .strike{text-decoration-color:#ff6b5e}
-/* hero mascot <image> elements (empty until the asset exists) */
-/* Hero and introduction mascots */
-/* Introduction mascot */
-/* Introduction mascot */
-.mascot {
-    position: absolute;
-    bottom: 0;
-    width: clamp(210px, 37.5vw, 270px);
-    height: auto;
-    aspect-ratio: 1;
-    object-fit: contain;
-    pointer-events: none;
-    user-select: none;
+/* Hero mascots: the artwork is landscape with transparent margins, so crop to the cat (object-fit:cover).
+   They overlap the card edge by ~20px and hang outside it, so they never sit on top of card text. */
+.mascot{position:absolute;bottom:-12px;width:clamp(120px,15vw,190px);aspect-ratio:1;height:auto;object-fit:cover;pointer-events:none;user-select:none;z-index:2}
+.mascot.l{right:calc(100% - 20px)}
+.mascot.r{left:calc(100% - 20px)}
+.n-hero > .mascot.l{bottom:-20px}
+@media (max-width:760px){
+  .mascot{width:84px;bottom:-50px}
+  .chapter-note ~ .mascot.l{right:auto;left:-6px}
+  .chapter-note ~ .mascot.r{left:auto;right:-6px}
+  .n-hero > .mascot.l{width:104px;bottom:-104px;left:-4px;right:auto}
+  .n-ch2 > .mascot,.n-ch3 > .mascot{bottom:-62px}
+  .n-ch4 > .mascot.r{left:auto;right:calc(100% - 20px);bottom:-30px;width:104px}
 }
-
-.mascot.l {
-    right: calc(100% + 8px);
-}
-
-.mascot.r {
-    left: calc(100% + 8px);
-}
-
-@media (max-width:760px) {
-    .mascot {
-        width: 210px;
-        bottom: -35px;
-    }
-
-    .mascot.l {
-        right: auto;
-        left: -10px;
-    }
-
-    .mascot.r {
-        left: auto;
-        right: -10px;
-    }
-}
+@media (max-width:760px) and (max-height:720px){.n-ch2 > .mascot,.n-ch3 > .mascot{display:none}}
 /* Project badge + mascot callouts */
 .badge {
     display: inline-block;
@@ -205,9 +180,24 @@ a.node:hover .paper,a.node:focus-visible .paper{box-shadow:3px 9px 18px rgba(0,0
 .calc-keys .eq{background:var(--ink);color:var(--paper)}.calc-keys .tall{grid-row:span 2}.calc-keys .wide{grid-column:span 2}
 
 
-.n-hero > .mascot.r {
-    left: calc(100% - 90px);
-    right: auto;
-    bottom: -20px;
-    z-index: 2;
-}
+
+
+/* ===== Update 4: Chapter 03 profile + contact form ===== */
+.profile-wrap{max-width:none}
+.profile-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(1.5rem,5vw,3.5rem);align-items:start;margin-top:1.5rem}
+.profile-desc{font-size:1.2rem}
+.profile-main h3{margin-top:2rem}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.chips li{padding:.3rem .8rem;border:1.5px solid var(--ink);background:#f4ecd8;color:var(--ink);font:500 .85rem 'JetBrains Mono',monospace}
+.contact-form{position:relative;background:var(--note);padding:1.8rem 1.2rem 1.2rem;box-shadow:3px 6px 14px rgba(41,41,37,.22);transform:rotate(1deg)}
+.contact-form::before{content:'';position:absolute;top:-12px;left:50%;width:90px;height:24px;margin-left:-45px;background:rgba(113,137,154,.5);transform:rotate(-2deg)}
+.contact-form .label{margin:0 0 .6rem;color:var(--muted)}
+.contact-form label.mono{display:block;margin:.7rem 0 .25rem}
+.contact-form input,.contact-form textarea{display:block;width:100%;min-height:44px;padding:.5rem .6rem;border:1px solid var(--ink);border-radius:0;background:#fffdf4;color:var(--ink);font:400 1rem 'DM Sans',sans-serif}
+.contact-form textarea{resize:vertical;min-height:120px}
+.contact-form .btn{margin-top:1rem;width:100%}
+.contact-form .btn:disabled{opacity:.6;cursor:wait}
+.contact-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-status{min-height:1.4em;margin:.8rem 0 0}
+.form-status.ok{color:#2f6b3a}.form-status.err{color:#9b2c20}
+@media (max-width:760px){.profile-grid{grid-template-columns:1fr}.contact-form{transform:none}}

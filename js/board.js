@@ -21,7 +21,7 @@
   }
 
   // ---------- spotlight items ----------
-  var vg = null, items = [], active = 0, mode = 'title';
+  var vg = null, items = [], active = 0, mode = 'title', pinned = false;
   if (ws) {
     vg = document.createElement('div');
     vg.className = 'vignette'; vg.setAttribute('aria-hidden', 'true'); document.body.appendChild(vg);
@@ -32,14 +32,14 @@
     });
     items.forEach(function (it, i) {
       if (!it.widget) return;
-      var f = function () { active = i; mode = 'widget'; lastPick = 0; wake(); };
+      var f = function () { active = i; mode = 'widget'; pinned = true; lastPick = 0; wake(); };
       it.widget.addEventListener('pointerdown', f);
       it.widget.addEventListener('focusin', f);
     });
     // two-way spotlight: clicking the description/title container shifts the spotlight back to the text
     items.forEach(function (it, i) {
       if (!it.title) return;
-      var g = function () { active = i; mode = 'title'; lastPick = 0; wake(); };
+      var g = function () { active = i; mode = 'title'; pinned = true; lastPick = 0; wake(); };
       it.title.addEventListener('pointerdown', g);
       it.title.addEventListener('focusin', g);
     });
@@ -94,9 +94,10 @@
   }
   function pick(sy, now) {
     var mid = M.vh / 2, best = active, bd = 1e9;
-    if (mode === 'widget') {                    // keep the spotlight on a clicked widget while its project is mid-screen
+    if (pinned) {                               // keep the spotlight where the visitor clicked (widget OR description) while that project is mid-screen
       var ab = items[active].b, top = ab.y - sy - ab.h / 2, bot = top + ab.h;
       if (bot > M.vh * 0.2 && top < M.vh * 0.8) { applyRetreat(); lastPick = now; return; }
+      pinned = false; mode = 'title';
     }
     for (var i = 0; i < items.length; i++) {
       var d = Math.abs(items[i].b.y - sy - mid);
@@ -115,7 +116,7 @@
     // ----- READ phase (scroll position + cached numbers only) -----
     var sy = scrollY, vy = (sy - prevSy) / dt; prevSy = sy;
     var introVisible = sy < M.wrapEnd;
-    var wsVisible = !!ws && sy + M.vh > M.wsTop && sy < M.wsBot;
+    var wsVisible = !!ws && sy + M.vh * 0.75 > M.wsTop && sy + M.vh * 0.25 < M.wsBot;   // dim only while the projects fill the screen, never over Chapter 03
     var zt = reduce ? 0 : Math.min(1, Math.max(0, sy / M.zoomSpan));
     if (wsVisible && now - lastPick > 100) pick(sy, now);
     var tx, ty, tr;
