@@ -17,6 +17,18 @@ function asset(string $path): string {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= htmlspecialchars($siteName) ?>'s Portfolio</title>
   <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
+  <!--ERUDA DEBUGGING PARA SA PISTING YAWA NA COOKIE-->
+  <script>
+    if (new URLSearchParams(location.search).has('debug')) {
+        const script = document.createElement('script');
+
+        script.src = 'https://cdn.jsdelivr.net/npm/eruda';
+
+        script.onload = () => eruda.init();
+
+        document.head.appendChild(script);
+    }
+  </script>
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
