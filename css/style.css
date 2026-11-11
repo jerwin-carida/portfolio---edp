@@ -1,3 +1,49 @@
+/* Self-hosted static fonts (assets/fonts). Paths are relative to this file, so they work in any folder. */
+/* Cormorant Garamond */
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-weight: 500;
+    src: url('../assets/fonts/Cormorant_Garamond/static/CormorantGaramond-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-weight: 600;
+    src: url('../assets/fonts/Cormorant_Garamond/static/CormorantGaramond-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: italic;
+    font-weight: 500;
+    src: url('../assets/fonts/Cormorant_Garamond/static/CormorantGaramond-MediumItalic.ttf') format('truetype');
+}
+
+/* DM Sans */
+@font-face {
+    font-family: 'DM Sans';
+    font-weight: 400;
+    src: url('../assets/fonts/Dm_Sans/static/DMSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'DM Sans';
+    font-weight: 500;
+    src: url('../assets/fonts/Dm_Sans/static/DMSans-Medium.ttf') format('truetype');
+}
+
+/* JetBrains Mono */
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-weight: 400;
+    src: url('../assets/fonts/JetBrains_Mono/static/JetBrainsMono-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-weight: 500;
+    src: url('../assets/fonts/JetBrains_Mono/static/JetBrainsMono-Medium.ttf') format('truetype');
+}
 :root{--paper:#EDE3CE;--ink:#292925;--muted:#6a6963;--slate:#71899A;--gold:#B89B65;--note:#E6D8A8}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:64px}

@@ -28,8 +28,8 @@ function mascot_note(string $placement, string $msg, string $source): void { ?>
     <div class="exp-text">
       <span class="num">01</span>
       <h3>Greetings</h3>
-      <p class="badge mono">Seal of Approval: SUCCESS</p>
-      <p>In the year 2024, Jerwin Carida started learning Java Programming and the very first program he made was a simple print of greet.</p>
+      <p class="badge mono">SUCCESS</p>
+      <p>In the year 2024, I started learning Java Programming and the very first program I made was a simple <strong>print</strong> of greet.</p>
     </div>
 
     <?php
@@ -54,8 +54,8 @@ function mascot_note(string $placement, string $msg, string $source): void { ?>
     <div class="exp-text">
       <span class="num">02</span>
       <h3>Guess The Number</h3>
-      <p class="badge mono">Seal of Approval: SUCCESS</p>
-      <p>In the year 2024, right after making the greet program, Jerwin Carida was soon presented with another impossible challenge. He was tasked to create a program that thinks of a random number and the user will guess it. Such a problem involves the use of the Random class, loops, and conditional statements.</p>
+      <p class="badge mono">SUCCESS</p>
+      <p>In the year 2024, right after making the greet program, I was soon presented with another impossible challenge. I was tasked to create a program that thinks of a random number and the user will guess it. Such a problem involves the use of the <strong>Random class, loops, and conditional statements.</strong></p>
     </div>
 
     <?php
@@ -79,10 +79,9 @@ function mascot_note(string $placement, string $msg, string $source): void { ?>
   <article class="exp reveal">
     <div class="exp-text">
       <span class="num">03</span>
-      <p class="mono cat">GUI Experiment</p>
-      <h3>GUI Static Webpage - Simple Calculator</h3>
-      <p class="badge mono">Seal of Approval: SUCCESS</p>
-      <p>In the year 2025, when his skills have improved a little, he set out to take on another challenge. A simple calculator that takes input from a click event of a button. The task involves the use of html, css, js DOM.</p>
+      <h3>Simple Calculator</h3>
+      <p class="badge mono">SUCCESS</p>
+      <p>In the year 2025, when my skills have improved a little, I set out to take on another challenge. A simple calculator that takes input from a click event of a button. The task involves the use of <strong>html, css, js DOM.</strong></p>
     </div>
 
     <?php include 'includes/calculator.php'; ?>
