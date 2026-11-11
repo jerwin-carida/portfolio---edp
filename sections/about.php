@@ -20,9 +20,7 @@
         </ul>
       </div>
 
-      <aside class="profile-form" aria-label="Contact form">
-        <?php include __DIR__ . '/../includes/contact-form.php'; ?>
-      </aside>
+      
     </div>
   </div>
 </section>

@@ -28,7 +28,7 @@
     var intro = ws.querySelector('.spot-intro');
     items.push({ box: intro, title: intro, widget: null });
     ws.querySelectorAll('.exp').forEach(function (a) {
-      items.push({ box: a, title: a.querySelector('.exp-text') || a, widget: a.querySelector('.cli-note,.calc,.slot') });
+      items.push({ box: a, title: a.querySelector('.exp-text') || a, widget: a.querySelector('.cli-note,.calc,.slot,.photo') });
     });
     items.forEach(function (it, i) {
       if (!it.widget) return;
@@ -46,7 +46,7 @@
   }
 
   // ---------- sticky notes (rotational inertia) ----------
-  var notes = [].slice.call(document.querySelectorAll('.cli-note,.calc,.slot,.board .paper')).map(function (el, i) {
+  var notes = [].slice.call(document.querySelectorAll('.cli-note:not(.kanban-note),.calc,.slot,.photo,.board .paper')).map(function (el, i) {
     return { el: el, zone: el.closest('.board') ? 'intro' : 'ws', base: 0, th: 0, w: 0, on: false, k: 0.7 + (i % 4) * 0.15 };
   });
 

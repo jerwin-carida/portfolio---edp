@@ -247,3 +247,124 @@ a.node:hover .paper,a.node:focus-visible .paper{box-shadow:3px 9px 18px rgba(0,0
 .form-status{min-height:1.4em;margin:.8rem 0 0}
 .form-status.ok{color:#2f6b3a}.form-status.err{color:#9b2c20}
 @media (max-width:760px){.profile-grid{grid-template-columns:1fr}.contact-form{transform:none}}
+
+
+/* ===== Update 5 (v3.2): cut-out paper name header, Kanban board ===== */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.small{font-size:.78rem}
+.tech{margin:.6rem 0 0;padding-left:1.1rem}.tech li{margin:.15rem 0}
+
+/* Cut-out paper header: each letter is a torn scrap of textured parchment */
+.n-title{--x:50;--y:7;pointer-events:none;z-index:3}
+.n-title::before{content:'';position:absolute;top:-9px;left:50%;width:76px;height:20px;margin-left:-38px;background:rgba(113,137,154,.55);transform:rotate(-2deg);z-index:2}
+.cutout{display:flex;flex-wrap:nowrap;align-items:center;gap:.14em;margin:0;white-space:nowrap;font:600 clamp(1.3rem,3.3vw,2.6rem)/1 'Cormorant Garamond',serif;color:var(--ink);filter:drop-shadow(1px 3px 2px rgba(0,0,0,.38))}
+.cut{display:inline-block;padding:.14em .2em .1em;background-color:#f1e6c9;background-image:url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2790%27%20height=%2790%27%3E%3Cfilter%20id=%27n%27%3E%3CfeTurbulence%20type=%27fractalNoise%27%20baseFrequency=%27.85%27%20numOctaves=%272%27%20stitchTiles=%27stitch%27/%3E%3CfeColorMatrix%20values=%270%200%200%200%20.38%20%200%200%200%200%20.28%20%200%200%200%200%20.14%20%200%200%200%20.28%200%27/%3E%3C/filter%3E%3Crect%20width=%27100%25%27%20height=%27100%25%27%20filter=%27url%28%23n%29%27/%3E%3C/svg%3E");transform:rotate(var(--r,0deg));text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.cut-gap{display:inline-block;width:.55em}
+.cut:nth-child(4n+1){clip-path:polygon(2% 6%,30% 0,58% 5%,100% 1%,97% 38%,100% 70%,96% 100%,64% 94%,34% 100%,0 96%,4% 60%,0 30%)}
+.cut:nth-child(4n+2){clip-path:polygon(0 2%,38% 6%,70% 0,99% 4%,100% 45%,95% 98%,60% 100%,25% 95%,3% 100%,1% 55%)}
+.cut:nth-child(4n+3){clip-path:polygon(3% 0,48% 4%,100% 0,98% 52%,100% 96%,55% 100%,0 97%,3% 48%)}
+.cut:nth-child(4n){clip-path:polygon(0 4%,22% 0,66% 5%,97% 2%,100% 60%,94% 100%,40% 95%,5% 100%,2% 40%)}
+.cut:nth-child(5n){background-color:#d8c196}
+.cut:nth-child(7n+3){background-color:#e8d9b4}
+.n-ch2{--y:28}.n-ch3{--y:30}
+@media (max-width:760px){
+  .n-title{--y:4.5}
+  .cutout{font-size:clamp(1.05rem,6vw,1.6rem)}
+  .n-hero{--y:52}.n-ch2{--y:18}.n-ch3{--y:18}.n-ch4{--y:89}
+}
+
+/* Project 04: Draggable To-Do List (Kanban) */
+.exp.exp-wide{grid-template-columns:1fr}
+.kanban-note{max-width:none;transform:none}
+.kb-add{display:flex;gap:.4rem;margin:.2rem 0 1rem}
+.kb-add input{flex:1;min-width:0;min-height:44px;padding:0 .6rem;border:1px solid var(--ink);border-radius:0;background:#fffdf4;color:var(--ink);font:400 1rem 'DM Sans',sans-serif}
+.kb-add button{min-height:44px;padding:0 1rem;background:var(--ink);color:var(--paper);border:0;font:500 .95rem 'DM Sans',sans-serif;cursor:pointer}
+.kb-board{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;align-items:start}
+.kb-col{background:rgba(255,253,244,.55);border:1px solid rgba(41,41,37,.35);padding:.6rem .6rem .8rem;min-height:230px;transition:outline-color .2s}
+.kb-col.is-over{outline:2px dashed var(--slate);outline-offset:2px}
+.kb-col h4{display:flex;justify-content:space-between;align-items:center;margin:0 0 .1rem;font:600 1.25rem/1.1 'Cormorant Garamond',serif}
+.kb-count{font:500 .75rem 'JetBrains Mono',monospace;border:1px solid var(--ink);padding:0 .45rem}
+/* ===== Kanban cards -> small sticky notes (design only) ===== */
+.kb-list{gap:.9rem;padding:.2rem .1rem .4rem}
+
+.kb-card{
+  position:relative;
+  gap:.35rem;
+  min-height:68px;
+  padding:1.05rem .55rem .8rem .35rem;      /* extra top space for the tape strip */
+  background:#fff1a8;                        /* Not Started: classic yellow */
+  border:0;
+  border-radius:1px 1px 3px 1px;
+  box-shadow:0 1px 1px rgba(41,41,37,.18),2px 6px 10px rgba(41,41,37,.22);
+  rotate:-1.2deg;                            /* separate property, so the landing animation still works */
+  transition:translate .18s ease,box-shadow .18s ease;
+}
+.kb-card:nth-child(even){rotate:1.1deg}
+.kb-card:nth-child(3n){rotate:-.5deg}
+
+/* Pending = peach, Finished = mint */
+.kb-col[data-col="pending"] .kb-card{background:#ffd9ac}
+.kb-col[data-col="done"] .kb-card{background:#cdeeb8}
+
+/* strip of tape at the top */
+.kb-card::before{
+  content:'';position:absolute;top:-7px;left:50%;
+  width:46px;height:14px;margin-left:-23px;
+  background:rgba(113,137,154,.55);
+  transform:rotate(-2deg);
+  pointer-events:none;
+}
+/* curled bottom-right corner */
+.kb-card::after{
+  content:'';position:absolute;right:0;bottom:0;
+  width:16px;height:16px;
+  background:linear-gradient(135deg,rgba(0,0,0,0) 50%,rgba(41,41,37,.16) 50%,rgba(255,255,255,.55) 100%);
+  border-top-left-radius:3px;
+  pointer-events:none;
+}
+
+.kb-card:hover{translate:0 -2px;box-shadow:0 1px 1px rgba(41,41,37,.2),3px 10px 14px rgba(41,41,37,.28)}
+
+/* handwritten feel */
+.kb-text{font:italic 500 1.12rem/1.25 'Cormorant Garamond',serif;color:var(--ink)}
+.kb-grip{color:rgba(41,41,37,.45)}
+
+/* smaller, lighter buttons that sit on the note */
+.kb-btn{min-width:28px;min-height:28px;background:rgba(255,255,255,.6);border:1px solid rgba(41,41,37,.55);border-radius:2px}
+.kb-btn:hover:not(:disabled){background:var(--ink);color:var(--paper)}
+
+/* while dragging */
+.kb-card.is-dragging{opacity:.35}
+.kb-ghost{rotate:3deg;box-shadow:6px 14px 22px rgba(41,41,37,.35)}
+
+@media (prefers-reduced-motion:reduce){.kb-card{transition:none}}
+
+/* ===== Update 6: project 05 taped photo iframe, side-by-side contact ===== */
+.photo{position:relative;margin:0;justify-self:center;width:100%;max-width:460px;padding:.9rem .9rem 0;background:#fbf8ef;
+  box-shadow:1px 2px 2px rgba(41,41,37,.2),4px 9px 18px rgba(41,41,37,.28);transform:rotate(var(--tilt,0deg));backface-visibility:hidden}
+/* two strips of tape across the top corners */
+.photo::before,.photo::after{content:'';position:absolute;top:-11px;width:84px;height:24px;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,0) 40%,rgba(255,255,255,.18)),rgba(226,208,150,.72);
+  box-shadow:0 1px 2px rgba(41,41,37,.18);
+  clip-path:polygon(0 0,4% 14%,0 28%,4% 43%,0 57%,4% 71%,0 86%,3% 100%,100% 100%,96% 86%,100% 71%,96% 57%,100% 43%,96% 28%,100% 14%,97% 0)}
+.photo::before{left:-26px;transform:rotate(-38deg)}
+.photo::after{right:-26px;transform:rotate(38deg)}
+.photo-frame{position:relative;aspect-ratio:4/3;background:#fff;border:1px solid rgba(41,41,37,.35);overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),inset 0 2px 8px rgba(41,41,37,.22)}
+.photo-frame iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+/* faint glossy sheen, ignores clicks so the iframe stays usable */
+.photo-frame::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.14) 0,rgba(255,255,255,0) 35%)}
+.photo-cap{margin:0;padding:.55rem .2rem .75rem;text-align:center;color:var(--muted);font-size:1.2rem;line-height:1.2}
+
+@media (max-width:760px){.photo{max-width:calc(100% - 20px)}.photo::before{left:-14px}.photo::after{right:-14px}}
+
+/* Contact: info on the left, form beside it */
+#contact .contact-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.5rem clamp(1.5rem,5vw,3.5rem);align-items:start}
+#contact .contact-info{min-width:0}
+#contact .contact li{overflow-wrap:anywhere}
+#contact .profile-form{min-width:0;width:100%;max-width:440px;justify-self:end}
+#contact .contact-layout .note{grid-column:1/-1;margin:0}
+@media (max-width:760px){
+  #contact .contact-layout{grid-template-columns:1fr}
+  #contact .profile-form{max-width:none;justify-self:stretch}
+}

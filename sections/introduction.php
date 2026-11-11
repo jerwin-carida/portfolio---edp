@@ -11,7 +11,7 @@ $notes = [
    'variant' => 'is-black', 'side' => 'r', 'img' => 'assets/images/detective.webp'],
 
   ['cls' => 'n-ch4', 'href' => '#contact', 'num' => '04',
-   'title' => 'The Unfinished Chapter',
+   'title' => 'CONTACT',
    'sub' => 'Quick, call now!',
    'variant' => '', 'side' => 'r', 'img' => 'assets/images/detective01.webp'],
 ];
@@ -27,6 +27,21 @@ $notes = [
       <img class="sticker <?= $c ?>" src="<?= asset('assets/images/stickers/' . $f) ?>" alt="" width="<?= $w ?>" height="<?= $h ?>" decoding="async">
       <?php endforeach; */ ?>
 
+
+      <?php
+      // Cut-out paper header: every letter is its own torn scrap of parchment (shape + texture in css/style.css).
+      $cutText = strtoupper($siteName);
+      $cutRot  = [-3, 2, -1.5, 3.5, -2.5, 1.5, -3.5, 2.5, -1, 3, -2, 1.5, -3];
+      ?>
+      <div class="node n-title">
+        <p class="cutout" role="img" aria-label="<?= htmlspecialchars($siteName) ?>">
+          <?php foreach (str_split($cutText) as $i => $ch): ?>
+            <?php if ($ch === ' '): ?><span class="cut-gap" aria-hidden="true"></span>
+            <?php else: ?><span class="cut" aria-hidden="true" style="--r:<?= $cutRot[$i % count($cutRot)] ?>deg"><?= htmlspecialchars($ch) ?></span>
+            <?php endif; ?>
+          <?php endforeach; ?>
+        </p>
+      </div>
 
       <div class="node n-hero" data-hero>
         <div class="paper hero-note">

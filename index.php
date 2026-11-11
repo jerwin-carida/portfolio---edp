@@ -45,5 +45,6 @@ function asset(string $path): string {
   <script src="<?= asset('js/workshop.js') ?>" defer></script>
   <script src="<?= asset('js/board.js') ?>" defer></script>
   <script src="<?= asset('js/contact.js') ?>" defer></script>
+  <script src="<?= asset('js/kanban.js') ?>" defer></script>
 </body>
 </html>
