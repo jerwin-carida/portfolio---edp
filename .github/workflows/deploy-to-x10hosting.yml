@@ -1,28 +1,32 @@
-name: Deploy PHP Portfolio to x10Hosting
+name: Deploy to x10hosting
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main  # Change to 'master' if that is your main branch
 
 jobs:
-  deploy:
+  web-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
+      - name: Get latest code
         uses: actions/checkout@v4
 
-      - name: Deploy to x10Hosting
+      # OPTIONAL: If using React, Vite, or a build step, uncomment the lines below:
+      # - name: Install Dependencies & Build
+      #   run: |
+      #     npm install
+      #     npm run build
+
+      - name: Sync files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.X10_FTP_HOST }}
+          server: ${{ secrets.X10_FTP_SERVER }}
           username: ${{ secrets.X10_FTP_USERNAME }}
           password: ${{ secrets.X10_FTP_PASSWORD }}
           protocol: ftp
           port: 21
+          # If you have a build folder (like 'dist' or 'build'), set local-dir to './dist/'
           local-dir: ./
-          server-dir: ${{ secrets.X10_FTP_SERVER_DIR }}
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
-            README.md
+          
